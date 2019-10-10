@@ -68,6 +68,10 @@ function watchedMovie (req, res, next) {
         where: { title: title }
     })
     .then( record => record.update({ watched: watched }) )
-    .then( () => next() )
+    .then( () => {
+        res.locals.watched
+        return next()
+    })
 }
+
 module.exports = { addMovie, getMovies, deleteMovie, watchedMovie }

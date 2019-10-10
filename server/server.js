@@ -12,8 +12,12 @@ app.delete('/movie', movieController.deleteMovie, movieController.getMovies, (re
     return res.status(200).json(res.locals.movies);
 })
 
-app.patch('/movie', movieController.watchedMovie, movieController.getMovies, (req, res) => {
-    return res.status(200).json(res.locals.movies);
+// app.patch('/movie', movieController.watchedMovie, movieController.getMovies, (req, res) => {
+//     return res.status(200).json(res.locals.movies);
+// })
+
+app.patch('/movie', movieController.watchedMovie, (req, res) => {
+    return res.status(200).json(res.locals.watched);
 })
 
 app.post('/movie', movieController.addMovie, movieController.getMovies, (req, res) => {

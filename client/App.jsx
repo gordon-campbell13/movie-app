@@ -14,7 +14,7 @@ class App extends Component {
         this.searchApi = this.searchApi.bind(this);
         this.saveApi = this.saveApi.bind(this);
         this.deleteCard = this.deleteCard.bind(this);
-        this.watchedCard = this.watchedCard.bind(this);
+        // this.watchedCard = this.watchedCard.bind(this);
     }
 
     searchApi(event) {
@@ -79,26 +79,26 @@ class App extends Component {
         })
     }
 
-    watchedCard(watchState, nodeProps) {
-        console.log('inside watchedCard function: ', watchState);
-        const title = { 
-            title: nodeProps.title,
-            watched: watchState
-        }
-        console.log('this is title in watchedCard: ', typeof title)
-        fetch('/movie', {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(title)
-        })
-        .then( res => res.json() )
-        .then( movies => {
-            this.setState({
-                savedMovies: movies
-            })
-            // console.log('movies response obj!: ', movies)
-        })
-    }
+    // watchedCard(watchState, nodeProps) {
+    //     console.log('inside watchedCard function: ', watchState);
+    //     const title = { 
+    //         title: nodeProps.title,
+    //         watched: watchState
+    //     }
+    //     console.log('this is title in watchedCard: ', typeof title)
+    //     fetch('/movie', {
+    //         method: 'PATCH',
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify(title)
+    //     })
+    //     .then( res => res.json() )
+    //     .then( movies => {
+    //         this.setState({
+    //             savedMovies: movies
+    //         })
+    //         // console.log('movies response obj!: ', movies)
+    //     })
+    // }
 
     componentDidMount() {
         fetch('/movie')
@@ -121,7 +121,7 @@ class App extends Component {
                 releaseDate={el.releaseDate}
                 watched={el.watched}
                 deleteCard={this.deleteCard}
-                watchedCard={this.watchedCard}
+                // watchedCard={this.watchedCard}
                 />
         })
         let tempMovies
@@ -142,15 +142,17 @@ class App extends Component {
         }
         return (
             <main>
-                This is my main page for now
                 <article className='searchSection'>
-                    this will be the search section
                     <Search searchApi={this.searchApi}/>
                     <div className='tempMovies'>
                         {tempMovies}
                     </div>
                 </article>
+                <div className='saved'>
+                    <h2>Saved Movies!</h2>
+                </div>
                 <div className='favSection'>
+                    
                     {movies}
                 </div>
             </main>

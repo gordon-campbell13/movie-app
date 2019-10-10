@@ -1,15 +1,92 @@
+body {
+    background: #1d1e22;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    color: #d4d4dc;
+}
+
+button {
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    background: #393939;
+    color: #ec7f37;
+    border: 1px solid #ec7f37;
+}
+
+.delete {
+    color: #d4d4dc;
+    border: 1px solid #d4d4dc;
+}
+
+.saved {
+    display: flex;
+    justify-content: center;
+    color: #d4d4dc;
+}
+
 .favSection {
     display: grid;
     grid-template: auto / repeat(2, 1fr);
 }
 
 .movieTile {
-    border: 1px black solid;
+    border: 2px #d4d4dc solid;
+    background: #393f4d;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 10px;
+    color: #d4d4dc;
+    box-shadow: 2px 2px 7px 1px #feda6a;
+}
+
+.movieTile div {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-evenly;
+
+    width: 300px;
+    
+}
+
+span {
+    color: #feda6a;
 }
 
 .searchSection {
     display: flex;
     flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.searchBar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 25px;
+    width: 500px;
+    margin-bottom: 50px;
+}
+
+.searchButton {
+    background: #feda6a;
+    color: #1d1e22;
+    border: 0px;
+    height: 35px;
+    width: 110px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.inputField {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
 }
 
 .tempMovies {
@@ -18,5 +95,11 @@
 }
 
 .searchTile {
-    border: 1px blue solid;
+    border: 2px #feda6a solid;
+    background: #393f4d;
+    border-radius: 8px;
+    padding: 15px;
+    color: #d4d4dc;
+    margin: 12px;
+    box-shadow: 2px 2px 7px 1px #d4d4dc;
 }

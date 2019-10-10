@@ -8,9 +8,9 @@ class SearchTile extends Component {
     render() {
         return (
             <section className='searchTile'>
-                <h6>Title: {this.props.title}</h6>
-                <p>Overview: {this.props.overview}</p>
-                <p>Release Date: {this.props.releaseDate}</p>
+                <h4><span>Title:</span> {this.props.title}</h4>
+                <p><span>Overview:</span> {this.props.overview}</p>
+                <p><span>Release Date:</span> {this.props.releaseDate}</p>
                 <button onClick={() => this.props.saveApi(this.props)}>Add to watchlist</button>
             </section>
         )
