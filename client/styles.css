@@ -6,3 +6,17 @@
 .movieTile {
     border: 1px black solid;
 }
+
+.searchSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.tempMovies {
+    display: grid;
+    grid-template: auto / repeat(4, 1fr);
+}
+
+.searchTile {
+    border: 1px blue solid;
+}

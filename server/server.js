@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.post('/movie', movieController.addMovie, movieController.getMovies, (req, res) => {
     return res.status(200).send('Thanks for adding a new movie!');
 })
+
 app.get('/movie', movieController.getMovies, (req, res) => {
     res.status(200).json(res.locals.movies);
 })
