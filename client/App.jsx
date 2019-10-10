@@ -80,13 +80,15 @@ class App extends Component {
     }
 
     watchedCard(watchState, nodeProps) {
+        console.log('inside watchedCard function: ', watchState);
         const title = { 
             title: nodeProps.title,
             watched: watchState
         }
+        console.log('this is title in watchedCard: ', typeof title)
         fetch('/movie', {
             method: 'PATCH',
-            header: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(title)
         })
         .then( res => res.json() )
@@ -94,6 +96,7 @@ class App extends Component {
             this.setState({
                 savedMovies: movies
             })
+            // console.log('movies response obj!: ', movies)
         })
     }
 

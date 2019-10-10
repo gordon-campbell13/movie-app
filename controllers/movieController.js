@@ -54,7 +54,20 @@ function deleteMovie (req, res, next) {
 }
 
 function watchedMovie (req, res, next) {
-    let movieTitle = req.body.title;
-    
+    console.log('this is req.body in watchedMovie controller: ', req.body)
+    let { title, watched } = req.body;
+    console.log('this is title in watchedMovie controller: ', title)
+    console.log('this is watched in watchedMovie controller: ', watched)
+    if (watched) {
+        watched = false
+    } else {
+        watched = true
+    }
+    console.log('title after conditions check: ', title)
+    Movie.findOne({
+        where: { title: title }
+    })
+    .then( record => record.update({ watched: watched }) )
+    .then( () => next() )
 }
-module.exports = { addMovie, getMovies, deleteMovie }
+module.exports = { addMovie, getMovies, deleteMovie, watchedMovie }

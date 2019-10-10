@@ -9,6 +9,13 @@ class MovieTile extends Component {
     }    
     
     render() {
+        let watchedDiv;
+        if (this.state.watched) {
+            watchedDiv = <p>YOU WATCHED IT ALREADY!</p>
+        } else {
+            watchedDiv = <div></div>
+        }
+
         return (
             <section className='movieTile'>
                 <h3>Title: {this.props.title}</h3>
@@ -16,6 +23,9 @@ class MovieTile extends Component {
                 <p>Overview: {this.props.overview}</p>
                 <p>Rating: {this.props.averageVote}</p>
                 <p>Release Date: {this.props.releaseDate}</p>
+                <div>
+                    {watchedDiv}
+                </div>
                 <div>
                     <button onClick={() => this.props.watchedCard(this.state.watched, this.props)}>Watched</button>
                     <button onClick={() => this.props.deleteCard(this.props)}>Delete</button>
