@@ -13,6 +13,8 @@ class App extends Component {
         }
         this.searchApi = this.searchApi.bind(this);
         this.saveApi = this.saveApi.bind(this);
+        this.deleteCard = this.deleteCard.bind(this);
+        this.watchedCard = this.watchedCard.bind(this);
     }
 
     searchApi(event) {
@@ -29,7 +31,7 @@ class App extends Component {
                         overview: e.overview,
                         releaseDate: e.release_date,
                         averageVote: e.vote_average,
-                        genre: 'not sure'
+                        genre: (e.genre === undefined) ? 'Not labeled' : e.genre
                     }
                     movies.push(movieObj);
                 })
@@ -41,7 +43,6 @@ class App extends Component {
     }
 
     saveApi(nodeProps) {
-        // console.log('this is nodeProps: ', nodeProps);
         let movie = {
             title: nodeProps.title,
             genre: nodeProps.genre,
@@ -49,19 +50,51 @@ class App extends Component {
             averageVote: nodeProps.averageVote,
             releaseDate: nodeProps.releaseDate
         }
-        // console.log('this is JSON string movie obj before fetch: ', JSON.stringify(movie));
         fetch('/movie', { 
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(movie)
         })
-            .then( res => res.json() )
-            .then( movies => {
-                this.setState({
-                    savedMovies: movies,
-                    searchMovies: []
-                })
+        .then( res => res.json() )
+        .then( movies => {
+            this.setState({
+                savedMovies: movies,
+                searchMovies: []
             })
+        })
+    }
+
+    deleteCard(nodeProps) {
+        const title = { title: nodeProps.title }
+        fetch('/movie', { 
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(title)
+        })
+        .then( res => res.json() )
+        .then( movies => {
+            this.setState({
+                savedMovies: movies
+            })
+        })
+    }
+
+    watchedCard(watchState, nodeProps) {
+        const title = { 
+            title: nodeProps.title,
+            watched: watchState
+        }
+        fetch('/movie', {
+            method: 'PATCH',
+            header: {'Content-Type': 'application/json'},
+            body: JSON.stringify(title)
+        })
+        .then( res => res.json() )
+        .then( movies => {
+            this.setState({
+                savedMovies: movies
+            })
+        })
     }
 
     componentDidMount() {
@@ -83,6 +116,9 @@ class App extends Component {
                 overview={el.overview}
                 averageVote={el.averageVote}
                 releaseDate={el.releaseDate}
+                watched={el.watched}
+                deleteCard={this.deleteCard}
+                watchedCard={this.watchedCard}
                 />
         })
         let tempMovies

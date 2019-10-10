@@ -3,22 +3,27 @@ const db = require('./database.js');
 
 const Movie = db.define('movie', {
     title: { 
-        type: Sequelize.STRING, 
+        type: Sequelize.TEXT, 
         allowNull: false
     },
     overview: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
     },
     releaseDate: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
     },
     averageVote: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(1),
     },
     genre: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
+    },
+    watched: {
+        type: Sequelize.BOOLEAN
     }
 })
+
+// Movie.sync({ force: true });
 
 module.exports = Movie

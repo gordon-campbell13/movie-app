@@ -1,28 +1,23 @@
 const Movie = require('../database/movie-model.js');
 
 function addMovie (req, res, next) {
-    // console.log('req.body: ', req.body);
-    // console.log('made it add movie middleware');
-    // const {title, overview} = req.body;
+
     const newMovie = {
         title: req.body.title,
         overview: req.body.overview,
         releaseDate: req.body.releaseDate,
-        averageVote: Math.floor(req.body.averageVote),
-        genre: req.body.genre
+        averageVote: req.body.averageVote,
+        genre: req.body.genre,
+        watched: false
     }
-    console.log('averageVote VALUE TYPE: ', typeof newMovie.averageVote);
-    console.log('newMove in addMovie middleware: ', newMovie);
 
     Movie.create(newMovie)
         .then( () => {
-            // res.status(200).json(newMovie) 
             return next();
         })
         .catch( (err) => {
-            // console.log('this is error in add movie middleware: ', err)
-            // err.log = 'Error in addMovie middleware';
-            // err.message = 'We could not add your new movie';
+            err.log = 'Error in addMovie middleware';
+            err.message = 'We could not add your new movie';
             return next(err);
         });
 }
@@ -40,4 +35,26 @@ function getMovies (req, res, next) {
         });
 }
 
-module.exports = { addMovie, getMovies }
+function deleteMovie (req, res, next) {
+    let movieTitle = req.body.title;
+    Movie.destroy({
+        where: {
+            title: movieTitle
+        }
+    })
+    .then(() => {
+        console.log('made it back from the destroy request')
+        return next()
+    })
+    .catch(function (err) {
+        err.log = 'Error could not delete rows from database';
+        err.message = 'Uh oh';
+        return err;
+    });
+}
+
+function watchedMovie (req, res, next) {
+    let movieTitle = req.body.title;
+    
+}
+module.exports = { addMovie, getMovies, deleteMovie }

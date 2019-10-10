@@ -8,6 +8,10 @@ const movieController = require('../controllers/movieController.js');
 
 app.use(bodyParser.json());
 
+app.delete('/movie', movieController.deleteMovie, movieController.getMovies, (req, res) => {
+    return res.status(200).json(res.locals.movies);
+})
+
 app.post('/movie', movieController.addMovie, movieController.getMovies, (req, res) => {
     return res.status(200).json(res.locals.movies);
 })
