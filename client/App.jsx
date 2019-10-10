@@ -12,6 +12,7 @@ class App extends Component {
             searchMovies: []
         }
         this.searchApi = this.searchApi.bind(this);
+        this.saveApi = this.saveApi.bind(this);
     }
 
     searchApi(event) {
@@ -39,9 +40,33 @@ class App extends Component {
         event.preventDefault();
     }
 
+    saveApi(nodeProps) {
+        // console.log('this is nodeProps: ', nodeProps);
+        let movie = {
+            title: nodeProps.title,
+            genre: nodeProps.genre,
+            overview: nodeProps.overview,
+            averageVote: nodeProps.averageVote,
+            releaseDate: nodeProps.releaseDate
+        }
+        // console.log('this is JSON string movie obj before fetch: ', JSON.stringify(movie));
+        fetch('/movie', { 
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(movie)
+        })
+            .then( res => res.json() )
+            .then( movies => {
+                this.setState({
+                    savedMovies: movies,
+                    searchMovies: []
+                })
+            })
+    }
+
     componentDidMount() {
         fetch('/movie')
-            .then( res => res.json())
+            .then( res => res.json() )
             .then( movies => {
                 this.setState({
                     savedMovies: movies
@@ -66,8 +91,11 @@ class App extends Component {
                 return <SearchTile 
                     key={ind}
                     title={el.title}
+                    genre={el.genre}
                     overview={el.overview}
+                    averageVote={el.averageVote}
                     releaseDate={el.releaseDate}
+                    saveApi={this.saveApi}
                 />
             })
         } else {

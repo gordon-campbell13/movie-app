@@ -1,4 +1,3 @@
-const db = require('../database/database.js');
 const Movie = require('../database/movie-model.js');
 
 function addMovie (req, res, next) {
@@ -9,19 +8,21 @@ function addMovie (req, res, next) {
         title: req.body.title,
         overview: req.body.overview,
         releaseDate: req.body.releaseDate,
-        averageVote: req.body.averageVote,
+        averageVote: Math.floor(req.body.averageVote),
         genre: req.body.genre
     }
+    console.log('averageVote VALUE TYPE: ', typeof newMovie.averageVote);
+    console.log('newMove in addMovie middleware: ', newMovie);
 
     Movie.create(newMovie)
         .then( () => {
-            return next();
             // res.status(200).json(newMovie) 
+            return next();
         })
         .catch( (err) => {
-            console.log('this is error in add movie middleware: ', err)
-            err.log = 'Error in addMovie middleware';
-            err.message = 'We could not add your new movie';
+            // console.log('this is error in add movie middleware: ', err)
+            // err.log = 'Error in addMovie middleware';
+            // err.message = 'We could not add your new movie';
             return next(err);
         });
 }

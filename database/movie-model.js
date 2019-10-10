@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize  = require('sequelize');
 const db = require('./database.js');
 
 const Movie = db.define('movie', {
@@ -14,7 +14,7 @@ const Movie = db.define('movie', {
         allowNull: false
     },
     averageVote: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL,
     },
     genre: {
         type: Sequelize.STRING,

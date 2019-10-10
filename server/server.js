@@ -9,11 +9,11 @@ const movieController = require('../controllers/movieController.js');
 app.use(bodyParser.json());
 
 app.post('/movie', movieController.addMovie, movieController.getMovies, (req, res) => {
-    return res.status(200).send('Thanks for adding a new movie!');
+    return res.status(200).json(res.locals.movies);
 })
 
 app.get('/movie', movieController.getMovies, (req, res) => {
-    res.status(200).json(res.locals.movies);
+    return res.status(200).json(res.locals.movies);
 })
 
 // serves the static bundle when scripts are run in index.html
@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
     };
     // overwrite properties on errObj
     const errObj = { ...defaultErrObj, ...err };
-    console.log('Error log: ', errObj.log);
+    console.log('Error log: ', err);
     // set status code and send message as json obj
     res.status(errObj.status).json(errObj.message);
 
