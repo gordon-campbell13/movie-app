@@ -1,10 +1,23 @@
 const path = require('path')
 
 module.exports = {
-    entry: './src/index.js',
+    mode: process.env.NODE_ENV,
+    entry: './client/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js'
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: path.resolve(__dirname, './client/'),
+        publicPath: '/build/',
+        hot: true,
+        // port: 8080,
+        proxy: {
+            '/movie': { 
+                target: 'http://localhost:3000'
+            }
+        }
     },
     module: {
         rules: [
@@ -14,6 +27,10 @@ module.exports = {
                 loader: "babel-loader",
                 options: { presets: ["@babel/env", "@babel/react"] }
             },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
         ]
     }
 }

@@ -1,0 +1,8 @@
+.favSection {
+    display: grid;
+    grid-template: auto / repeat(2, 1fr);
+}
+
+.movieTile {
+    border: 1px black solid;
+}
